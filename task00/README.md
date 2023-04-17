@@ -10,7 +10,7 @@
 
 Follow the instruction below to build the attached C++ code. This code will display an OpenGL window showing a triangle.  Take a screenshot of the window (it should look like the image above) and paste it below.  Put the image under the directory `pba-<username>/task00` and edit this markdown document. 
 
-=== (paste the screenshot image here`![](image file name)` ) === 
+=== (paste the screenshot image here![](../doc/task00_obinata.png) ) ===
 
 
 
