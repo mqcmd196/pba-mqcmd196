@@ -123,3 +123,9 @@ got to the GitHub webpage `https://github.com/PBA-2023S/acg-<username>` . If eve
 - I mistakenly submit the assignement in the `main` branch
   - Make a branch `task00` and submit again
 
+
+## Homework submission
+
+- I successfully built the cpp code.
+![](../doc/task00_obinata.png)
+
