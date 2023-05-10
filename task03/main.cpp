@@ -11,6 +11,7 @@
 #define GL_SILENCE_DEPRECATION
 #include <GLFW/glfw3.h>
 #include <Eigen/Dense>
+#include <cassert>
 
 #include "../src/pba_util_glfw.h"
 #include "../src/pba_util_gl.h"
@@ -172,6 +173,8 @@ void set_force_accelerated(
         } else { // far field approximation
           // write a few lines of code here to compute the force from far grid.
           // use the center for the gravity of the grid : `acc.grid2cg[jy * num_div + jx]`
+          Eigen::Vector2f cg = acc.grid2cg[jy * num_div + jx];
+          particles[ip].force += gravitational_force(cg - particles[ip].pos);
         }
       }
     }
@@ -186,7 +189,7 @@ int main() {
   constexpr unsigned int num_div = 30;
 
   // particle information
-  std::vector<Particle> particles(5000); // change the number of particles here
+  std::vector<Particle> particles(20000); // change the number of particles here
   for (auto &p: particles) {
     // initialization
     p.pos.setRandom();
@@ -212,8 +215,8 @@ int main() {
       if( i_step % 20 == 0 ){ std::cout << i_step << " steps in " << num_step << " steps computed" << std::endl; }
 
       // switch brute-force/accelerated computation here by uncomment/comment below
-      set_force_bruteforce(particles);
-      // set_force_accelerated(particles, acceleration, box_size, num_div);
+      // set_force_bruteforce(particles);
+      set_force_accelerated(particles, acceleration, box_size, num_div);
 
       for (auto &p: particles) {
         // leap frog time integration
