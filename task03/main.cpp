@@ -174,7 +174,8 @@ void set_force_accelerated(
           // write a few lines of code here to compute the force from far grid.
           // use the center for the gravity of the grid : `acc.grid2cg[jy * num_div + jx]`
           Eigen::Vector2f cg = acc.grid2cg[jy * num_div + jx];
-          particles[ip].force += gravitational_force(cg - particles[ip].pos);
+          unsigned int particles_in_grid = acc.grid2idx[jy * num_div + jx + 1] - acc.grid2idx[jy * num_div + jx];
+          particles[ip].force += gravitational_force(cg - particles[ip].pos) * particles_in_grid;
         }
       }
     }
