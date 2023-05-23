@@ -30,6 +30,11 @@ void wdw_spring_3d(
 
   // write a few lines of code below to compute the gradient of elastic energy of this spring
   // with respect to the positions of the two end points.
+  const float f_common = stiffness * C / length;
+  const Eigen::Vector3f f1 = f_common * (node2xyz[0] - node2xyz[1]);
+  const Eigen::Vector3f f2 = f_common * (node2xyz[1] - node2xyz[0]);
+  dw[0] = f1;
+  dw[1] = f2;
 }
 
 float gradient_descent_energy_minimization(
@@ -73,7 +78,7 @@ float gradient_descent_energy_minimization(
 }
 
 int main() {
-  constexpr float learning_rate = 6.5e-3f;
+  constexpr float learning_rate = 6.5e-4f;
   constexpr int num_theta = 64;
   const auto[tri2vtx, vtx2xyz_ini] = pba::generate_mesh_annulus3(0.3, 0.8, 32, num_theta);
   const auto line2vtx = pba::lines_of_mesh(tri2vtx, static_cast<int>(vtx2xyz_ini.rows()));
