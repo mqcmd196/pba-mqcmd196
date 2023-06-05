@@ -38,16 +38,17 @@ void WdWddW_Spring3(
   const double length = (node2xyz[0] - node2xyz[1]).norm(); // distance between p0 and p1
   const double C = length - length_ini; // the length differences.
   w = 0.5f * stiffness * C * C; // Hooke's law. energy is square of length difference W=1/2*k*C*C
-  //
   const Eigen::Vector3d u01 = (node2xyz[1] - node2xyz[0]).normalized();
   const Eigen::Vector3d dC[num_node] = {-u01, u01};
   for (int ino = 0; ino < num_node; ++ino) {
-    dw[ino] = stiffness * dC[ino] * C; // dW = k*dC*C
+      dw[ino] = stiffness * dC[ino] * C; // dW = k*dC*C
   }
   // write code to correctly compute hessian of a spring.
   // ddw[i_node][j_node] stands for derivative of dw[i_node] w.r.t the end-point's position node2xyz[j_node]
   // the current hessian computed by the code below is not very accurate, so the simulation is unstable.
-  const Eigen::Matrix3d n = stiffness * u01 * u01.transpose();
+  const auto p = node2xyz[1] - node2xyz[0];
+  const Eigen::Matrix3d n = stiffness * (1 - length_ini / length) * Eigen::Matrix3d::Identity()
+          + stiffness * length_ini * pow(length, -3.f) * p * p.transpose();
   ddw[0][0] = n;
   ddw[1][1] = n;
   ddw[0][1] = -n;
