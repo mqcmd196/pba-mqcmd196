@@ -41,7 +41,7 @@ Save the screenshot image overwriting `task08/problem2.png`
 
 Write down the elastic potential energy of spring shown in the standard output after the convergence below: 
 
-***elastic potential energy == ?????***
+***elastic potential energy == 0.258599***
 
 ## After Doing the Assignment
 
