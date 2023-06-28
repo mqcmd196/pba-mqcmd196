@@ -46,7 +46,7 @@ Save the screenshot image overwriting `task09/problem2.png`
 
 Run the program for a while to let the minimization converge. Write down the converged energy shown in standard output below. 
 
-***energy: == ?????***
+***energy: == -5483.12***
 
 ## After Doing the Assignment
 
